@@ -5,7 +5,7 @@ var db = require('../models')
 var creatingUser = (req,res,next) => {
     
     const {fullName,email,password} = req.body;
-    db.User.createUser( { fullName , email , password}).then(user=>res.json({user,msg: "bal"}))
+    db.User.createUser( { fullName , email , password}).then( user =>res.json({user, msg: "create user sucess"}))
         
 }
 

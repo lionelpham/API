@@ -8,12 +8,14 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.createUser  = ({fullName,email,password}) => {
         return User.create({fullName, email, password})
-          .then(user => console.log("created success"));
+          
   }
-  User.getAllUser = () => {
-        return User.findAll().then(r => console.log(r));
+  User.getUserCurrent = (email,pass) => {
+        return User.findOne({
+          where: {email : email} && {password : pass}
+        })
   }
-  User.getUserBy = ({obj}) =>{
+  User.getUserBy = (obj) =>{
         return User.findOne({where : obj}).then(r => console.log(r));
   }
   User.associate = function(models) {

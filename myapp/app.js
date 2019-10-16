@@ -5,20 +5,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// var passport = require('passport');
-// var passportJWT = require('passport-jwt');
-// var ExtractJwt = passportJWT.ExtractJwt;
-// var JwtStrategy = passportJWT.Strategy;
-// var jwtOptions = {};
-// var jwt = require('jsonwebtoken');
-// jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-// jwtOptions.secretOrKey = 'demoapi';
+
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login')
 var signupRouter= require('./routes/signup')
+
+var passport = require('passport')
+require('./passportjwt/passport');
 
 var app = express();
 // view engine setup
@@ -35,10 +31,13 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/me', passport.authenticate('jwt', {session: false}),usersRouter);
 app.use('/signup',signupRouter);
-app.use('/login',signupRouter);
+app.use('/login',loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
