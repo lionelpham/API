@@ -33,10 +33,11 @@ passport.use(new JWTStrategy({
     secretOrKey   : 'viet_1612810'
     },
     function (jwtPayload, cb) {
-        //find the user in db if needed
+        console.log("payload:", jwtPayload)
         
-        return db.User.getUserBy(jwtPayload.id)
+        return db.User.getUserBy({id: jwtPayload.id})
             .then(user => {
+                console.log("tesT: ",user)
                 return cb(null, user);
             })
             .catch(err => {

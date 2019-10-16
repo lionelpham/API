@@ -6,7 +6,7 @@ const passport = require('passport')
 
 router.post('/', (req,res,next) => {
     passport.authenticate('local',{session:false},(err,user,info)=>{
-        console.log(err)
+        
         if ( err || !user) {
             return res.status(400).json({
                 message: info ? info.message : 'Login failed',
@@ -17,6 +17,8 @@ router.post('/', (req,res,next) => {
             if (err){
                 res.send(err)
             }
+            console.log("user - ",user);
+            console.log("demo - ",user.toJSON())
             const token = jwt.sign(user.toJSON(),'viet_1612810')
             
             return res.json({user,token})

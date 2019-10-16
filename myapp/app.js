@@ -15,7 +15,6 @@ var signupRouter= require('./routes/signup')
 
 var passport = require('passport')
 require('./passportjwt/passport');
-
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
           where: {email : email} && {password : pass}
         })
   }
-  User.getUserBy = (obj) =>{
-        return User.findOne({where : obj}).then(r => console.log(r));
+  User.getUserBy = ({obj}) =>{
+        return User.findOne({where : obj});
   }
   User.associate = function(models) {
     // associations can be defined here
